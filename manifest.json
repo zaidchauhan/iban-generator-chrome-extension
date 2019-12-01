@@ -1,0 +1,25 @@
+{
+    "name": "IBAN-Generator",
+    "version": "0.5",
+    "description": "Generate random IBAN which copied to clipboard. Based on https://en.wikipedia.org/wiki/International_Bank_Account_Number",
+    "manifest_version": 2,
+    "permissions": [
+        "clipboardWrite",
+        "notifications",
+        "contextMenus",
+        "activeTab"
+    ],
+    "icons": {
+        "16": "/static-content/iban_blue.png",
+        "48": "/static-content/iban_blue.png",
+        "128": "/static-content/iban_blue.png"
+    },
+    "browser_action": {
+        "default_title": "Random IBAN Gnerator",
+        "default_icon": "/static-content/iban_blue.png"
+    },
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    }
+}
