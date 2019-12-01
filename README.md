@@ -1,4 +1,4 @@
-# IBAN Generator (chrome extension)
+# IBAN Generator (chrome extension) [![Build Status](https://travis-ci.com/zaidchauhan/iban-generator-chrome-extension.svg?branch=master)](https://travis-ci.com/zaidchauhan/iban-generator-chrome-extension)
 
 This is simple chrome extension to generate random IBAN. \
 Right now, it is limited to Netherlands as country.\
