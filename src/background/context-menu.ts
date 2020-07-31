@@ -1,4 +1,4 @@
-import { generateBSN } from './iban-generator';
+import { generateIBAN } from './iban-generator';
 
 function init(): void {
   chrome.runtime.onInstalled.addListener(() => {
@@ -15,7 +15,7 @@ function init(): void {
         chrome.tabs.executeScript({
           code: `
             document.execCommand('selectAll');
-            document.execCommand('insertText', false, '${generateBSN()}');
+            document.execCommand('insertText', false, '${generateIBAN()}');
           `,
         });
         break;

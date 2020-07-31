@@ -15,18 +15,26 @@ function copyToClipboard(message: string): boolean {
 }
 
 function indicateSuccessOnToolbar(): void {
-  chrome.browserAction.setTitle({ title: 'Copied...' });
   chrome.browserAction.setBadgeText({ text: 'ok' });
-  chrome.browserAction.setIcon({ path: '/static-content/iban_green.png' }, () => {
+  chrome.browserAction.setIcon({ path: 'static-content/iban-green.png' }, () => {
     setTimeout(() => {
       chrome.browserAction.setBadgeText({ text: '' });
-      chrome.browserAction.setIcon({ path: '/static-content/iban_blue.png' });
-      chrome.browserAction.setTitle({ title: 'Random IBAN Gnerator' });
+      chrome.browserAction.setIcon({ path: 'static-content/iban-blue.png' });
     }, 1000);
+  });
+}
+
+function issueNotification(message: string): void {
+  chrome.notifications.create(`iban-generator-notifications-${(Math.floor(Math.random() * 900000) + 100000).toString()}`, {
+    message,
+    type: 'basic',
+    title: 'IBAN Generator',
+    iconUrl: 'static-content/iban-green.png',
   });
 }
 
 export {
   copyToClipboard,
   indicateSuccessOnToolbar,
+  issueNotification,
 };

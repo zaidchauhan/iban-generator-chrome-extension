@@ -1,11 +1,12 @@
-import { generateBSN } from './iban-generator';
-import { copyToClipboard, indicateSuccessOnToolbar } from '../common/until';
+import { generateIBAN, init as initGenerator } from './iban-generator';
+import { copyToClipboard, indicateSuccessOnToolbar, issueNotification } from '../common/until';
 import { initContextMenu } from './context-menu';
 
 chrome.browserAction.onClicked.addListener(() => {
-  const randomBSNNumber = generateBSN();
-  copyToClipboard(randomBSNNumber);
+  copyToClipboard(generateIBAN());
   indicateSuccessOnToolbar();
+  issueNotification('IBAN copied to clipboard!');
 });
 
 initContextMenu();
+initGenerator();

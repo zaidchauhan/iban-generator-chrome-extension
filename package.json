@@ -1,15 +1,11 @@
 {
   "name": "iban-generator-chrome-extension",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Generate random IBAN and copied to clipboard",
   "main": "index.js",
   "scripts": {
-    "copy": "cpy manifest.json dist && cpy src/static-content dist/static-content",
-    "clean": "rm -rf dist && yarn run copy",
-    "build": "set NODE_ENV=production& webpack --config webpack.config.js",
-    "prebuild": "yarn run clean",
-    "watch": "set NODE_ENV=production& webpack --config webpack.config.js --watch",
-    "prewatch": "yarn run clean",
+    "build": "webpack --config webpack.config.js --env.mode development --progress",
+    "build:watch": "webpack --config webpack.config.js --env.mode development --watch --progress",
     "zip": "yarn run lint && yarn run build && rm -rf iban-generator.zip && bestzip iban-generator.zip dist/*",
     "lint": "eslint --ext .js,.ts ./src/"
   },
@@ -20,14 +16,21 @@
     "@typescript-eslint/eslint-plugin": "^2.9.0",
     "@typescript-eslint/parser": "^2.9.0",
     "bestzip": "^2.1.5",
+    "clean-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.1.1",
     "cpy-cli": "^2.0.0",
     "eslint": "^6.7.2",
     "eslint-config-airbnb-typescript": "^6.3.1",
     "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-lit": "^1.2.0",
     "npm-run-all": "^4.1.5",
     "ts-loader": "^6.2.1",
     "typescript": "^3.6.4",
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
+    "webpack-cli": "^3.3.9",
+    "html-webpack-plugin": "^3.2.0"
+  },
+  "dependencies": {
+    "lit-element": "^2.2.1"
   }
 }

@@ -1,7 +1,9 @@
-
 import { DynamicObject } from '../common/type';
 
-// set value of each alphabet from 10 to 35
+//
+let bankCode: string;
+
+// setup char to number directory
 const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 const charToNumberDirectory: DynamicObject = {};
 chars.split('').forEach((char, index) => {
@@ -17,6 +19,7 @@ function replaceCharWithNumber(inputValue: string): string {
   return returningValue;
 }
 
+// find modulus
 function modulus(divident: string, divisor: number): number {
   if (divident.length <= 2) {
     return parseInt(divident, 10);
@@ -28,10 +31,12 @@ function modulus(divident: string, divisor: number): number {
   return modulus(`${(parseInt(strippedDivident, 10) % divisor)}${remainingDivident}`, divisor);
 }
 
-function generateBSN(countryCode = 'NL', bankCode = 'INGB'): string {
-  const randomNumber = Math.random().toString().slice(2, 12);
+// generate random IBAN
+function generateIBAN(): string {
+  const countryCode = 'NL';
+  const randomNumber = (Math.floor(Math.random() * 9000000000) + 1000000000).toString();
 
-  // assume random bsn with 00 checksum digit
+  // assume checksum digit as 00
   let bsn = `${countryCode}00${bankCode}${randomNumber}`;
 
   // move first four digits to last
@@ -52,6 +57,24 @@ function generateBSN(countryCode = 'NL', bankCode = 'INGB'): string {
   return `${countryCode}${checkSumDigit}${bankCode}${randomNumber}`;
 }
 
+function init(): void {
+  // register storage change listener
+  chrome.storage.onChanged.addListener((changes) => {
+    const bankCodeChange = changes.bankCode && changes.bankCode.newValue;
+    if (bankCodeChange) {
+      bankCode = bankCodeChange;
+    }
+  });
+
+  // initial value
+  chrome.storage.sync.get({
+    bankCode: 'INGB',
+  }, (items) => {
+    bankCode = items.bankCode;
+  });
+}
+
 export {
-  generateBSN,
+  init,
+  generateIBAN,
 };
